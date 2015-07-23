@@ -1,7 +1,8 @@
 <?php
 
 class acf_field_multi_taxonomy_chooser extends acf_field {
-	
+        
+	protected $_pluginURL = true;
 	
 	/*
 	*  __construct
@@ -16,8 +17,9 @@ class acf_field_multi_taxonomy_chooser extends acf_field {
 	*  @return	n/a
 	*/
 	
-	function __construct() {
-		
+	function __construct($opts = array()) {
+                $this->_pluginURL = trailingslashit( isset($opts['pluginURL'])?$opts['pluginURL']:plugin_dir_url( __FILE__ ) );
+                
 		/*
 		*  name (string) Single word, no spaces. Underscores allowed
 		*/
@@ -174,7 +176,7 @@ class acf_field_multi_taxonomy_chooser extends acf_field {
 
         
         $taxonomies             = array();
-        $taxonomies             = acf_force_type_array( $taxonomies );
+//        $taxonomies             = acf_force_type_array( $taxonomies );
         $taxonomies             = acf_get_pretty_taxonomies( $taxonomies );
         $all_taxonomies         = acf_get_taxonomy_terms();
         $selected_taxonomies    = array();
@@ -384,6 +386,8 @@ class acf_field_multi_taxonomy_chooser extends acf_field {
         	    }
 
         	}
+                
+                echo '</select>';
         }
         else {
 
@@ -495,12 +499,12 @@ class acf_field_multi_taxonomy_chooser extends acf_field {
 
 
         // register & include JS
-        wp_register_script( 'acf-input-multi-taxonomy-chooser', "{$dir}js/input.js" );
+        wp_register_script( 'acf-input-multi-taxonomy-chooser', $this->_pluginURL."js/input.js" );
         wp_enqueue_script('acf-input-multi-taxonomy-chooser');
 
 
         // register & include CSS
-        wp_register_style( 'acf-input-multi-taxonomy-chooser', "{$dir}css/input.css" ); 
+        wp_register_style( 'acf-input-multi-taxonomy-chooser', $this->_pluginURL."css/input.css" ); 
         wp_enqueue_style('acf-input-multi-taxonomy-chooser');	
 
     }
@@ -871,6 +875,7 @@ class acf_field_multi_taxonomy_chooser extends acf_field {
 
 
 // create field
-new acf_field_multi_taxonomy_chooser();
+if( !defined('acf_field_multi_taxonomy_chooser_no_auto') )
+    new acf_field_multi_taxonomy_chooser();
 
 ?>
