@@ -3,7 +3,11 @@
     function initialize_field($el) {
 
         $('.field_type-multi-taxonomy-chooser .select2-container-disabled').remove();
-        $el.find('select').select2();
+        //$el.find('select').select2();
+        
+        //Have to explictily select this ACF field instead of the general "select" element such as above.
+        var select_list_id = $el.find('select');
+        $("#".select_list_id).select2();
         //$el.doStuff();
 
     }
