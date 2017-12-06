@@ -2,16 +2,20 @@
 
     function initialize_field($el) {
 
-        $('.field_type-multi-taxonomy-chooser .select2-container-disabled').remove();
-        //$el.find('select').select2();
+        //$('.field_type-multi-taxonomy-chooser .select2-container-disabled').remove();
         
         //Have to explictily select this ACF field instead of the general "select" element such as above.
-        var select_list_id = $el.find('select');
-        $("#".select_list_id).select2();
+        
+        
+        //var select_list_id = $('.js-multi-taxonomy-select2').attr('id')
+        //console.log(select_list_id);
+        
+        //$("#" + select_list_id).select2();
+       
         //$el.doStuff();
 
     }
-
+    
 
     if (typeof acf.add_action !== 'undefined') {
 
@@ -31,7 +35,7 @@
 
         acf.add_action('ready append', function ($el) {
 
-//            $("select.js-multi-taxonomy-select2").select2();
+            //$("select.js-multi-taxonomy-select2").select2();
 
             // search $el for fields of type 'multi-taxonomy-chooser'
             acf.get_fields({type: 'multi-taxonomy-chooser'}, $el).each(function () {
